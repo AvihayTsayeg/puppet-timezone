@@ -52,6 +52,10 @@ class timezone (
             mode    => '0644',
             content => template('timezone/el.erb'),
         }
+       exec { "update timezone":
+             command  => "tzdata-update",
+             require  => File['/etc/sysconfig/clock']
+       }        
     }
     'Suse': {
         package { 'timezone':
